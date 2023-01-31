@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Lato';
+    src: url('/Lato-Italic.ttf')  format('truetype');
+}
+
+body {
+    font-family: 'Courier New';
+    background-color: darkgoldenrod;
+    /* background-repeat: no-repeat; */
+}
+
+h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+}
+
+h2 {
+    font-size: 28px;
+    font-style: italic;
+    color: white;
+}
+
+.cntr {
+    text-align: -webkit-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    height: 50px;
+    width: 180px;
+    background-color: goldenrod;
+    border-width: 4px;
+    border-color: firebrick;
+    font-family: 'Courier New';
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
+button:hover {
+    color: firebrick;
+}

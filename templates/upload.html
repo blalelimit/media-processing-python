@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Media Processing Application - Upload</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/main/main.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<script src="static/scripts/selectItems.js">
+</script>
+<body>
+    <!-- <div>
+        <button style="height: 20px; width: 40px">
+            <a href="/whoami"></a>
+        </button>
+    </div> -->
+    <h1 style="text-align: center;">
+        Media Processing Application
+    </h1>
+    <h2 style="text-align: center;">
+        Image and Audio File Format Converter
+    </h2>
+    <div class="cntr">
+        <a href="{{ url_for('home') }}">
+            <button>Return Home</button>
+        </a>
+    </div>
+    <div style="text-align: center">
+        <br>
+        <p>Accepted Input File Formats:</p>
+        <p>Image: {{ image_text }}</p>
+        <p>Audio: {{ audio_text }}</p>
+        <p>Video: {{ video_text }}</p>
+    </div>
+    <form method="POST" , id="forms" , enctype='multipart/form-data' , style="text-align: center;">
+        <br>
+        {{ forms.hidden_tag() }}
+        {{ forms.file() }}
+        <br><br>
+        <div id="fields" , class="fields" , onclick=selectFormatsOption()>
+            <p>Select a Mode: </p>
+            <div class="mode-field" , id="mode-field">
+                <select name="mode" id="mode" required>
+                    <option value="">Select an Item</option>
+                    <option value="Image">Image</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Video">Video</option>
+                </select>
+            </div>
+            <br>
+            <div class="image-field" , id="image-field" , style='display:none'>
+                <p>Select an Image File Format:</p>
+                <select name="image" , id="image">
+                    <option value="">Select an Item</option>
+                    <option value="png">PNG</option>
+                    <option value="jpg">JPG</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="ico">ICO</option>
+                    <option value="webp">WEBP</option>
+                    <option value="bmp">BMP</option>
+                    <option value="pdf">PDF</option>
+                </select>
+                <div class="icon-field" , id="icon-field" , style='display:none'>
+                    <p>Select an ICO Size:</p>
+                    <select name="icon" , id="icon">
+                        <option value="16">16x16</option>
+                        <option value="24">24x24</option>
+                        <option value="32">32x32</option>
+                        <option value="48">48x48</option>
+                        <option value="64">64x64</option>
+                        <option value="128">128x128</option>
+                        <option value="256">256x256</option>
+                    </select>
+                </div>
+            </div>
+            <div class="audio-field" , id="audio-field" , style='display:none'>
+                <p>Select an Audio File Format:</p>
+                <select name="audio" , id="audio">
+                    <option value="">Select an Item</option>
+                    <option value="mp3">MP3</option>
+                    <option value="opus">OPUS</option>
+                    <option value="flac">FLAC</option>
+                    <option value="wav">WAV</option>
+                </select>
+            </div>
+            <div class="video-field" , id="video-field" , style='display:none'>
+                <p>Select a Video File Format:</p>
+                <select name="video" , id="video">
+                    <option value="">Select an Item</option>
+                    <option value="mp4">MP4</option>
+                    <option value="mkv">MKV</option>
+                    <option value="avi">AVI</option>
+                    <option value="mov">MOV</option>
+                    <option value="gif">GIF</option>
+                </select>
+                <div class="gif-field" , id="gif-field" , style='display:none'>
+                    <p>Select a GIF Specification:</p>
+                    <select name="gif" , id="gif">
+                        <option value="15, 480">15 FPS; 480x</option>
+                        <option value="20, 480">20 FPS; 480x</option>
+                        <option value="15, 640">15 FPS; 640x</option>
+                        <option value="20, 640">20 FPS; 640x</option>
+                        <option value="15, 960">15 FPS; 960x</option>
+                        <option value="20, 960">20 FPS; 960x</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <input id="submit" type="submit" value="Change Format" name="Change Format">
+    </form>
+    <br>
+    <p style="text-align: center;">{{ output }}</p>
+</body>
+</html>

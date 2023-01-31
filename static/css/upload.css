@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Lato';
+    src: url('/Lato-Italic.ttf')  format('truetype');
+}
+
+body {
+    background-color: darkgoldenrod;
+    font-family: 'Courier New'
+}
+
+h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+}
+
+h2 {
+    font-size: 28px;
+    font-style: italic;
+    color: white;
+}
+
+p, .forms, .fields{
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+#mode, #image, #audio, #video, #icon, #gif {
+    font-size: 18px;
+    font-weight: bold;
+}
+input[type=file] {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: firebrick;
+}
+
+input[type=submit] {
+    font-size: 18px;
+    font-weight: bold;
+    border-color: firebrick;
+    border-width: 3px;
+}
+
+select {
+    border-color: firebrick;
+    border-width: 3px;
+}
+
+.cntr {
+    text-align: -webkit-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    height: 50px;
+    width: 200px;
+    background-color: goldenrod;
+    border-width: 4px;
+    border-color: firebrick;
+    font-family: 'Courier New';
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
+button:hover {
+    color: firebrick;
+}
