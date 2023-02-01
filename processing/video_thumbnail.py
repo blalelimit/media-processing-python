@@ -8,9 +8,9 @@ import sys
 parser = argparse.ArgumentParser(description='Generate video thumbnail')
 parser.add_argument('-i', '--in_file', help='Input filename')
 parser.add_argument('-o', '--out_file', help='Output filename')
-parser.add_argument('-t', '--time', type=int, default=0.1, help='Time offset')
-parser.add_argument('-w', '--width', type=int, default=120,
-    help='Width of output thumbnail (height automatically determined by aspect ratio)')
+parser.add_argument('-t', '--time', type=float, default=0.5, help='Time offset')
+parser.add_argument('-w', '--width', type=int, default=960,
+    help='Width of output thumbnail (default 960, height automatically determined by aspect ratio)')
 
 
 def generate_thumbnail(in_file, out_file, time, width):

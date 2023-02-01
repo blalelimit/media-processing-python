@@ -19,7 +19,7 @@ def image_convert(in_file, out_file, format, icon_size):
         if old_format not in ['png', 'jpg', 'jpeg', 'ico', 'webp', 'bmp']:
             print('Invalid file format')
         else:
-            img = Image.open(f'{input_file[0]}.{old_format}').convert('RGB')
+            img = Image.open(in_file).convert('RGB')
             
             if format in ['png', 'pdf', 'bmp']:
                 img.save(f'{output_file}.{format}', format)
