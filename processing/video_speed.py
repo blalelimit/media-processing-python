@@ -16,7 +16,7 @@ def speed_up_media(in_file, out_file, factor, ffmpeg_location):
         (
             ffmpeg
             .input(in_file)
-            .output(out_file, filter_complex=f"atempo={factor};setpts=PTS*1/{factor}")
+            .output(f'{out_file}.mp4', filter_complex=f'atempo={factor};setpts=PTS*1/{factor}', vcodec='libx264', acodec='aac')
             .run(overwrite_output=True, cmd=ffmpeg_location, capture_stdout=True, capture_stderr=True)
         )
     except ffmpeg.Error as e:
