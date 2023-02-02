@@ -1,2 +1,17 @@
+# Folders
 static/inputs/
 static/outputs/
+scripts/__pycache__/
+scripts_/
+scripts/video_process.py
+scripts_/__pycache__/
+scripts/inputs/
+scripts/outputs/
+utils/__pycache__/
+.venv/
+.vscode/
+
+# Only include *.py files
+processing/*
+!processing/*.py
+
