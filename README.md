@@ -29,4 +29,4 @@ A python project that processes image, audio, and video files using [Pillow](htt
 * audio_video_speed.py -> Speed up audio or video, re-encodes with libx264 and aac codec.
 * av_to_av.py -> Convert audio to audio or video to video.
 * image_to_image -> Image formats converter.
-* video_thumbnail.py -> Generate thumbnail from video (jpg).
+* video_thumbnail.py -> Generate thumbnail from video (*.jpg).

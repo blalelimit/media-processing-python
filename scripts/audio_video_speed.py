@@ -37,15 +37,15 @@ class SpeedUp:
                     kwargs = dict(filename=f'{self.out_file}.mp4', filter_complex=f'[0:v]setpts=PTS*1/{self.factor}[v]', map='[v]', vcodec='libx264')
                 elif self.media == 'b':
                     kwargs = dict(filename=f'{self.out_file}.mp4', filter_complex=f'atempo={self.factor};setpts=PTS*1/{self.factor}', vcodec='libx264', acodec='aac')
-                process = (
-                    ffmpeg
-                    .input(self.in_file)
-                    .output(**kwargs)
-                    .global_args('-progress', 'pipe:1', '-loglevel', 'error')
-                    .overwrite_output()
-                    .run_async(pipe_stdout=True, pipe_stderr=True, cmd=self.ffmpeg_location)
-                )
-                result = progress_bar(process, total_duration)
+                result = progress_bar(
+                    (
+                        ffmpeg
+                        .input(self.in_file)
+                        .output(**kwargs)
+                        .global_args('-progress', 'pipe:1', '-loglevel', 'error')
+                        .overwrite_output()
+                        .run_async(pipe_stdout=True, pipe_stderr=True, cmd=self.ffmpeg_location)
+                    ), total_duration)
             except ffmpeg.Error:
                 sys.stdout.write('FFmpeg error, perhaps the file cannot be found.\n')
                 sys.exit(1)

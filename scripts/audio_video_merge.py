@@ -27,14 +27,14 @@ def media_merge(in_file_audio, in_file_video, out_file, ffmpeg_location):
             total_duration = min(audio_duration, video_duration)
             audio = ffmpeg.input(in_file_audio)
             video = ffmpeg.input(in_file_video)
-            process = (
-                ffmpeg
-                .output(audio.audio, video.video, f'{out_file}.mp4', acodec='aac', shortest=None, vcodec='copy')
-                .global_args('-progress', 'pipe:1', '-loglevel', 'error')
-                .overwrite_output()
-                .run_async(pipe_stdout=True, pipe_stderr=True, cmd=ffmpeg_location)
-            )
-            result = progress_bar(process, total_duration)
+            result = progress_bar(
+                (
+                    ffmpeg
+                    .output(audio.audio, video.video, f'{out_file}.mp4', acodec='aac', shortest=None, vcodec='copy')
+                    .global_args('-progress', 'pipe:1', '-loglevel', 'error')
+                    .overwrite_output()
+                    .run_async(pipe_stdout=True, pipe_stderr=True, cmd=ffmpeg_location)
+                ), total_duration)
         except ffmpeg.Error:
             sys.stdout.write('FFmpeg error, perhaps the file cannot be found.\n')
             sys.exit(1)

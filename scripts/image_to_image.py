@@ -56,6 +56,7 @@ def image_convert(in_file, out_file, format, icon_size):
             sys.stdout.write('Invalid input file format.\n')
             sys.exit(0)
 
+
 if __name__ == '__main__':
     args = parser.parse_args()
     if not args.in_file or not args.out_file:
