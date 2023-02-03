@@ -13,16 +13,17 @@ from utils.checkfile import check_file
 parser = argparse.ArgumentParser(description='Convert media files')
 parser.add_argument('-i', '--in_file', help='Input filename')
 parser.add_argument('-o', '--out_file', help='Output filename')
-parser.add_argument('-m', '--media', help='''Audio [a] or Video [v] media,
+parser.add_argument('-format', '--format', help='''Audio or Video format types,
                     Audio Formats [mp3, ogg, opus, m4a, flac, wav],
                     Video Formats [gif, mp4, mkv, avi, mov]''')
 parser.add_argument('-l', '--ffmpeg_location', default='ffmpeg.exe', help='FFmpeg location')
 
 
 class AVConvert:
-    def __init__(self, in_file, out_file, ffmpeg_location):
+    def __init__(self, in_file, out_file, format, ffmpeg_location):
         self.in_file = in_file
         self.out_file = out_file
+        self.format = format
         self.ffmpeg_location = ffmpeg_location
 
     def audio_convert(self):
@@ -30,12 +31,12 @@ class AVConvert:
             result = ''
             try:
                 total_duration = float(ffmpeg.probe(self.in_file)['format']['duration'])
-                if self.out_file.split('.')[-1] in ['mp3', 'ogg', 'opus', 'm4a', 'flac', 'wav']:
+                if self.out_file.split('.')[-1].lower() in ['mp3', 'ogg', 'opus', 'aac', 'm4a', 'flac', 'wav']:
                     result = progress_bar(
                         (
                             ffmpeg
                             .input(self.in_file).audio
-                            .output(f'{self.out_file}')
+                            .output(f'{self.out_file}.{self.format}')
                             .global_args('-progress', 'pipe:1')
                             .overwrite_output()
                             .run_async(pipe_stdout=True, pipe_stderr=True, cmd=self.ffmpeg_location)
@@ -60,7 +61,7 @@ class AVConvert:
             try:
                 out_files = self.out_file.split('.')
                 total_duration = float(ffmpeg.probe(self.in_file)['format']['duration'])
-                if out_files[-1] == 'gif':
+                if out_files[-1].lower() == 'gif':
                     result = progress_bar(
                         (
                             ffmpeg
@@ -70,12 +71,12 @@ class AVConvert:
                             .overwrite_output()
                             .run_async(pipe_stdout=True, pipe_stderr=True, cmd=self.ffmpeg_location)
                         ), total_duration)
-                elif out_files[-1] in ['mp4', 'mkv', 'avi', 'mov']:
+                elif out_files[-1].lower() in ['mp4', 'mkv', 'avi', 'mov']:
                     result = progress_bar(
                         (
                             ffmpeg
                             .input(self.in_file)
-                            .output(f'{self.out_file}')
+                            .output(f'{self.out_file}.{self.format}')
                             .global_args('-progress', 'pipe:1')
                             .overwrite_output()
                             .run_async(pipe_stdout=True, pipe_stderr=True, cmd=self.ffmpeg_location)
@@ -103,9 +104,9 @@ if __name__ == '__main__':
         sys.stdout.write('Media not provided through -m or --media')
         sys.stdout.write('\nType -h or --help for usage\n')
     else:
-        if args.media == 'a':
+        if args.format.lower() in ['mp3', 'ogg', 'opus', 'aac', 'm4a', 'flac', 'wav']:
             AVConvert(args.in_file, args.out_file, args.ffmpeg_location).audio_convert()
-        elif args.media == 'v':
+        elif args.format.lower() in ['gif', 'mp4', 'mkv', 'avi', 'mov']:
             AVConvert(args.in_file, args.out_file, args.ffmpeg_location).video_convert()
         else:
             sys.stdout.write('Media type not valid. Accepted inputs (a or b)')

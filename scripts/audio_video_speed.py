@@ -31,12 +31,12 @@ class SpeedUp:
             result = ''
             try:
                 total_duration = float(ffmpeg.probe(self.in_file)['format']['duration'])
-                if self.media == 'a':
+                if self.media.lower() == 'a':
                     kwargs = dict(filename=f'{self.out_file}.m4a', filter_complex=f'[0:a]atempo={self.factor}[a]', map='[a]', acodec='aac')
-                elif self.media == 'v':
-                    kwargs = dict(filename=f'{self.out_file}.mp4', filter_complex=f'[0:v]setpts=PTS*1/{self.factor}[v]', map='[v]', vcodec='libx264')
-                elif self.media == 'b':
-                    kwargs = dict(filename=f'{self.out_file}.mp4', filter_complex=f'atempo={self.factor};setpts=PTS*1/{self.factor}', vcodec='libx264', acodec='aac')
+                elif self.media.lower() == 'v':
+                    kwargs = dict(filename=f'{self.out_file}.mp4', filter_complex=f'[0:v]setpts=PTS*1/{self.factor}[v]', map='[v]', vcodec='libx265')
+                elif self.media.lower() == 'b':
+                    kwargs = dict(filename=f'{self.out_file}.mp4', filter_complex=f'atempo={self.factor};setpts=PTS*1/{self.factor}', vcodec='libx265', acodec='aac')
                 result = progress_bar(
                     (
                         ffmpeg

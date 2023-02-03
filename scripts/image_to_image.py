@@ -28,11 +28,11 @@ def image_convert(in_file, out_file, format, icon_size):
             if in_file.lower().endswith(('.png', 'jpg', '.jpeg', '.ico', '.webp', '.bmp')):
                 img = Image.open(in_file).convert('RGB')
                 # File output based on input format
-                if format in ['png', 'pdf', 'bmp']:
+                if format.lower() in ['png', 'pdf', 'bmp']:
                     img.save(f'{output_file}.{format}', format)
-                elif format == 'jpg':
+                elif format.lower() == 'jpg':
                     img.save(f'{output_file}.jpg', 'jpeg')
-                elif format == 'ico':
+                elif format.lower() == 'ico':
                     x, y = img.size
                     z = abs(int((x - y) / 2))
                     # set dimensions equal by resizing
@@ -44,7 +44,7 @@ def image_convert(in_file, out_file, format, icon_size):
                     if min(img.size) < icon_size:
                         img = img.resize(size=(icon_size, icon_size), resample=2, box=None, reducing_gap=None)
                     img.save(f'{output_file}.ico', sizes=[(icon_size, icon_size)])
-                elif format == 'webp':
+                elif format.lower() == 'webp':
                     img.save(f'{output_file}.webp', 'webp', lossless=True, quality=100, method=6)
                 else:
                     sys.stdout.write('Invalid output file format.\n')

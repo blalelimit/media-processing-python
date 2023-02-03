@@ -7,7 +7,7 @@ A python project that processes image, audio, and video files using [Pillow](htt
 * The FFmpeg executable must first be installed and added to PATH.
 
 # Requirements
-* Python 3
+* Python 3.7
 * FFmpeg executable from the official website.
 * Flask, Pillow, ffmpeg-python, and other libraries (for webapp).
 * You can install the packages in the requirements.txt file.
@@ -26,7 +26,7 @@ A python project that processes image, audio, and video files using [Pillow](htt
 
 # Scripts folder
 * audio_video_merge.py -> Merges audio and video codecs. Can also be used to replace audio.
-* audio_video_speed.py -> Speed up audio or video, re-encodes with libx264 and aac codec.
+* audio_video_speed.py -> Speed up audio or video, re-encodes with libx265 and aac codec.
 * av_to_av.py -> Convert audio to audio or video to video.
 * image_to_image -> Image formats converter.
 * video_thumbnail.py -> Generate thumbnail from video (*.jpg).
