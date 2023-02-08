@@ -1,5 +1,5 @@
-# https://github.com/arpanneupane19/Flask-File-Uploads/blob/main/main.py
-
+# Referece: https://github.com/arpanneupane19/Flask-File-Uploads/blob/main/main.py
+from os import path, remove
 from flask import Flask, request, render_template, flash, session
 from flask_uploads import UploadSet, IMAGES, AUDIO
 from flask_wtf import FlaskForm
@@ -7,7 +7,7 @@ from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename, redirect
 from wtforms.validators import InputRequired
 from uuid import uuid4
-from media_convert import *
+from utils.convert import *
 
 
 app = Flask(__name__)
@@ -34,8 +34,12 @@ def allowed_file(filename):
 
 def save_file(file, random_uuid, input_filename):
     # Saves the file to static/outputs
-    file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
-                           secure_filename(f'{random_uuid}.{input_filename[1]}')))
+    file.save(path.join(path.abspath(path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
+                           secure_filename(f'{random_uuid}.{input_filename[-1]}')))
+
+def delete_file(filename):
+    if path.exists(f'static/inputs/{filename}'):
+       remove(f'static/inputs/{filename}')
 
 
 @app.route('/', methods=['GET', "POST"])
@@ -87,26 +91,28 @@ def upload():
                 random_uuid = session.get('CURRENT_UUID', None)
 
                 # Ask user for mode
-                if mode_form == 'Image' and input_filename[1] in list(images):
+                if mode_form == 'Image' and input_filename[-1] in list(images):
                     save_file(file, random_uuid, input_filename)
                     MediaConvert(random_uuid, input_filename, image_form).image_convert(icon_form)
-                    output = f'Image file "{input_filename[0]}.{input_filename[1]}" ' \
+                    output = f'Image file "{input_filename[0]}.{input_filename[-1]}" ' \
                              f'has been converted to ' \
                              f'"{input_filename[0]}.{image_form}"'
-
-                elif mode_form == 'Audio' and input_filename[1] in list(audios):
+                    delete_file(f'{random_uuid}.{input_filename[-1]}')
+                elif mode_form == 'Audio' and input_filename[-1] in list(audios):
                     save_file(file, random_uuid, input_filename)
                     MediaConvert(random_uuid, input_filename, audio_form).audio_convert()
-                    output = f'Audio file "{input_filename[0]}.{input_filename[1]}" ' \
+                    output = f'Audio file "{input_filename[0]}.{input_filename[-1]}" ' \
                              f'has been converted to ' \
                              f'"{input_filename[0]}.{audio_form}"'
+                    delete_file(f'{random_uuid}.{input_filename[-1]}')
 
-                elif mode_form == 'Video' and input_filename[1] in list(videos):
+                elif mode_form == 'Video' and input_filename[-1] in list(videos):
                     save_file(file, random_uuid, input_filename)
                     MediaConvert(random_uuid, input_filename, video_form).video_convert(gif_form)
-                    output = f'Video file "{input_filename[0]}.{input_filename[1]}" ' \
+                    output = f'Video file "{input_filename[0]}.{input_filename[-1]}" ' \
                              f'has been converted to ' \
                              f'"{input_filename[0]}.{video_form}"'
+                    delete_file(f'{random_uuid}.{input_filename[-1]}')
 
                 else:
                     output = 'Invalid selected mode'
@@ -116,11 +122,6 @@ def upload():
 
     return render_template('upload.html', forms=forms,
                            image_text=images, audio_text=audios, video_text=videos, output=output)
-
-
-@app.route('/whoami', methods=['GET', "POST"])
-def whoami():
-    return render_template('whoami.html')
 
 
 if __name__ == '__main__':

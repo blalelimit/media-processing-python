@@ -21,12 +21,10 @@ A python project that processes image, audio, and video files using [Pillow](htt
 
 # Features
 * webapp.py -> Webapp deployed using Flask framework
-* media_convert.py -> Main method to convert file formats
-* scripts -> Folder containing python files for audio/video editing.
+* scripts -> Folder containing python files for media conversion and processing.
 
 # Scripts folder
-* audio_video_merge.py -> Merges audio and video codecs. Can also be used to replace audio.
-* audio_video_speed.py -> Speed up audio or video, re-encodes with libx265 and aac codec.
-* av_to_av.py -> Convert audio to audio or video to video.
-* image_to_image -> Image formats converter.
-* video_thumbnail.py -> Generate thumbnail from video (*.jpg).
+* image_to_image.py -> Image formats converter.
+* media_to_media.py -> Convert audio to audio or video to video.
+* media_combine.py -> Combines audio and video codecs. Can also be used to replace audio.
+* media_process.py -> Processing features for audio and video, such as trimming, concatenation, adding text, or thumbnail generation from video.

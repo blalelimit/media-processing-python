@@ -1,15 +1,16 @@
 # Folders
+__pycache__/
 static/inputs/
 static/outputs/
 scripts/__pycache__/
 scripts_/
-scripts/video_process.py
 scripts_/__pycache__/
 scripts/inputs/
 scripts/outputs/
 utils/__pycache__/
 .venv/
 .vscode/
+node_modules/
 
 # Only include *.py files
 processing/*
@@ -17,6 +18,9 @@ processing/*
 
 # Others
 main.py
+main.ipynb
+package-lock.json
+package.json
 
 
 

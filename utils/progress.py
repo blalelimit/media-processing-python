@@ -12,8 +12,9 @@ def reader(pipe, queue):
     finally:
         queue.put(None)
 
+
 # Progress Bar by Gulski from https://github.com/kkroening/ffmpeg-python/issues/43#issuecomment-924800648
-def progress_bar(process, total_duration):
+def progress_bar(process, total_duration, errors):
     q = Queue()
     error = ''
     Thread(target=reader, args=[process.stdout, q]).start()
@@ -23,8 +24,10 @@ def progress_bar(process, total_duration):
         for source, line in iter(q.get, None):
             line = line.decode()
             if source == process.stderr:
-                error = ' '
-                # error += line
+                if errors:
+                    error += line
+                else:
+                    error = ' '
             else:
                 line = line.rstrip()
                 parts = line.split('=')
@@ -32,9 +35,9 @@ def progress_bar(process, total_duration):
                 value = parts[1] if len(parts) > 1 else None
                 if key == 'out_time_ms':
                     time = max(round(float(value) / 1000000., 2), 0)
-                    bar.update(floor(time - bar.n))
+                    bar.update(floor(time - bar.n)) # Progress bar updates for every step
                 elif key == 'progress' and value == 'end':
-                    bar.update(bar.total - bar.n)
+                    bar.update(bar.total - bar.n) # Progress bar is filled at the end
     bar.close()
     return f'FFmpeg warning or error, perhaps the input was incorrect.\n\n{error}' if error else 'The media processing was successful.\n'
 

@@ -5,28 +5,21 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from PIL import Image
-from utils.checkfile import check_file
+from utils.scanfile import is_file
 
 
-parser = argparse.ArgumentParser(description='Convert image files')
-parser.add_argument('-i', '--in_file', help='Input filename')
-parser.add_argument('-o', '--out_file', help='Output filename')
-parser.add_argument('-f', '--format', help='''Input Image Formats [png, jpg, jpeg, ico, webp, bmp],
-                    Output Image Formats [png, jpg, ico, webp, bmp, pdf]''')
-parser.add_argument('-s', '--icon_size', type=int, default=32, help='''Icon Image Sizes [16, 24, 32, 48, 64, 128, 256]''')
-
-
-def image_convert(in_file, out_file, format, icon_size):
-        output_file = out_file.split('.')[0]
+def image_convert(IN_FILE, OUT_FILE, FORMAT, icon_size):
+        output_file = OUT_FILE.split('.')[0]
+        format = FORMAT
         # Check if input file is a file
-        if check_file(in_file):
+        if is_file(IN_FILE):
             # Checks if format is *.ico but input size is not valid
-            if in_file.lower().endswith(('.ico')) and icon_size not in [16, 24, 32, 48, 64, 128, 256]:
+            if IN_FILE.lower().endswith(('.ico')) and icon_size not in [16, 24, 32, 48, 64, 128, 256]:
                 sys.stdout.write('Icon size not valid.\n')
                 sys.exit(0)
             # Checks if the extension of the input file is valid
-            if in_file.lower().endswith(('.png', 'jpg', '.jpeg', '.ico', '.webp', '.bmp')):
-                img = Image.open(in_file).convert('RGB')
+            if IN_FILE.lower().endswith(('.png', 'jpg', '.jpeg', '.ico', '.webp', '.bmp')):
+                img = Image.open(IN_FILE).convert('RGB')
                 # File output based on input format
                 if format.lower() in ['png', 'pdf', 'bmp']:
                     img.save(f'{output_file}.{format}', format)
@@ -58,14 +51,29 @@ def image_convert(in_file, out_file, format, icon_size):
 
 
 if __name__ == '__main__':
+    available_formats = ['png', 'jpg', 'ico', 'webp', 'bmp', 'pdf']
+    available_sizes = [16, 24, 32, 48, 64, 128, 256]
+
+    # Required Arguments
+    parser = argparse.ArgumentParser(description='Convert image files')
+    parser.add_argument('IN_FILE', type=str, help='Input filename')
+    parser.add_argument('OUT_FILE', type=str, help='Output filename')
+    parser.add_argument('FORMAT', choices=available_formats, type=str, help='''Input Image Formats [png, jpg, jpeg, ico, webp, bmp],
+                    Output Image Formats [png, jpg, ico, webp, bmp, pdf]''')
+
+    # Optional Arguments
+    parser.add_argument('-s', '--icon_size', choices=available_sizes,
+                    type=int, default=32, help='''Icon Image Sizes [16, 24, 32, 48, 64, 128, 256]''')
+
     args = parser.parse_args()
-    if not args.in_file or not args.out_file:
-        sys.stdout.write('No file provided through --in_file or --out_file')
+
+    if not args.IN_FILE or not args.OUT_FILE:
+        sys.stdout.write('No file provided through IN_FILE or OUT_FILE')
         sys.stdout.write('\nType -h or --help for usage\n')
         sys.exit(0)
-    if not args.format:
-        sys.stdout.write('Format not provided through -f or --format')
+    if not args.FORMAT:
+        sys.stdout.write('Format not provided through FORMAT')
         sys.stdout.write('\nType -h or --help for usage\n')
         sys.exit(0)
     else:
-        image_convert(args.in_file, args.out_file, args.format, args.icon_size)
+        image_convert(args.IN_FILE, args.OUT_FILE, args.FORMAT, args.icon_size)
