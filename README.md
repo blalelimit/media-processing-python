@@ -2,8 +2,8 @@
 A python project that processes image, audio, and video files using [Pillow](https://pillow.readthedocs.io/en/stable/) and [FFmpeg](https://ffmpeg.org/). The [ffmpeg-python](https://pypi.org/project/ffmpeg-python/) wrapper was used for the project.
 
 # Overview
-* File Format Converter for image, audio, and video files.
-* Audio/video processing features such as merging audio and video codecs, etc.
+* File Format Converter for image, audio, and video files
+* Includes audio/video processing features such as merging audio and video codecs, etc.
 * The FFmpeg executable must first be installed and added to PATH.
 
 # Requirements
