@@ -50,6 +50,7 @@ class MediaConvert:
         else:
             img.save(path.join(pathFileSave, f'{self.filename[0]}.png'), 'png')
 
+
     def audio_convert(self):
         in_file = ffmpeg.input(path.join(pathFile, f'{self.uuid_filename}.{self.filename[1]}'))
         try:
@@ -67,36 +68,23 @@ class MediaConvert:
                     .run(overwrite_output=True, cmd='ffmpeg.exe', capture_stdout=True, capture_stderr=True)
                 )
         except ffmpeg.Error as e:
-            print('stdout:', e.stdout.decode('utf8'))
-            print('stderr:', e.stderr.decode('utf8'))
+            print('FFmpeg error')
+
 
     def video_convert(self, gif):
         in_file = ffmpeg.input(path.join(pathFile, f'{self.uuid_filename}.{self.filename[1]}'))
         try:
-            if self.file_format == 'gif':
-                fps, scale = gif.split(', ')
+            if self.file_format in ['mp4', 'mkv', 'avi', 'mov']:
                 (
                     ffmpeg
-                    .output(in_file, path.join(pathFileSave, f'{self.filename[0]}.gif'),
-                            ss=0, t=3, vf=f'fps={fps},scale={scale}:-1:flags=lanczos', loop=0)
+                    .output(in_file, path.join(pathFileSave, f'{self.filename[0]}.{self.file_format}'))
                     .run(overwrite_output=True, cmd='ffmpeg.exe', capture_stdout=True, capture_stderr=True)
                 )
-
-            elif self.file_format in ['mp4', 'mkv', 'avi', 'mov']:
-                (
-                    ffmpeg
-                    .output(in_file, path.join(pathFileSave, f'{self.filename[0]}.{self.file_format}'),
-                            vcodec='copy')
-                    .run(overwrite_output=True, cmd='ffmpeg.exe', capture_stdout=True, capture_stderr=True)
-                )
-
             else:
                 (
                     ffmpeg
-                    .output(in_file, path.join(pathFileSave, f'{self.filename[0]}.mp4'),
-                            vcodec='copy')
+                    .output(in_file, path.join(pathFileSave, f'{self.filename[0]}.mp4'))
                     .run(overwrite_output=True, cmd='ffmpeg.exe', capture_stdout=True, capture_stderr=True)
                 )
         except ffmpeg.Error as e:
-            print('stdout:', e.stdout.decode('utf8'))
-            print('stderr:', e.stderr.decode('utf8'))
+            print('FFmpeg error')
