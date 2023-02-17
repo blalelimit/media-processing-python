@@ -12,14 +12,14 @@ utils/__pycache__/
 .vscode/
 node_modules/
 
+
 # Only include *.py files
 processing/*
 !processing/*.py
 
 # Others
 main.py
-main.ipynb
-probe.ipynb
+ipynb/probe.ipynb
 package-lock.json
 package.json
 

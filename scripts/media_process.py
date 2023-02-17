@@ -70,9 +70,9 @@ class VideoEffect:
             # Flip video
             if self.EFFECT in ['hflip', 'vflip']:
                 outputs = dict(filename=f'{self.OUT_FILE}.mp4', vcodec='libx264', filter_complex=self.EFFECT)
-            # Lower video quality
+            # Re-encodes video with HEVC codec to lower file size
             elif self.EFFECT == 'q':
-                outputs = dict(filename=f'{self.OUT_FILE}.mp4', vcodec='libx264', crf=28, preset='fast')
+                outputs = dict(filename=f'{self.OUT_FILE}.mp4', vcodec='libx265', crf=28, preset='fast')
         
         # Requires additional args
         elif self.EFFECT in ['t', 'a', 'f', 's', 'd', 'tb']: 
@@ -217,7 +217,7 @@ if __name__ == '__main__':
     parser.add_argument('OUT_FILE', type=str, help='Output filename')
     parser.add_argument('EFFECT', choices=available_effects, help='''Video processing effects [hflip, vflip, q, t, a, f, s, d, tb];
                         Video Flip [hflip, vflip];
-                        Video Lower Quality [q];
+                        Video Lower File Size [q];
                         Audio/Video Trim (requires additional params) [t];
                         Audio/Video Concatenation (requires additional params) [a];
                         Audio/Video Change Speed (requires additional params) [f];

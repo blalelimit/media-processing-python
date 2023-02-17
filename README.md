@@ -1,4 +1,4 @@
-# MediaFormatProcessing
+# media-processing-python
 A python project that processes image, audio, and video files using [Pillow](https://pillow.readthedocs.io/en/stable/) and [FFmpeg](https://ffmpeg.org/). The [ffmpeg-python](https://pypi.org/project/ffmpeg-python/) wrapper was used for the project.
 
 # Overview
