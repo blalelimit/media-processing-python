@@ -5,17 +5,19 @@ static/outputs/
 scripts/__pycache__/
 scripts_/
 scripts_/__pycache__/
-scripts/inputs/
-scripts/outputs/
 utils/__pycache__/
 .venv/
 .vscode/
 node_modules/
 
 
-# Only include *.py files
+# Only include *.py and *.gitkeep files
 processing/*
 !processing/*.py
+inputs/*
+!inputs/*.gitkeep
+outputs/*
+!outputs/*.gitkeep
 
 # Others
 main.py

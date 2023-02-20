@@ -88,13 +88,13 @@ class VideoEffect:
                     streams_list = probe_file(self.IN_FILE)
                     if 'audio' in streams_list and 'video' in streams_list:
                         print('Audio and video codecs found')
-                        outputs = dict(filename=f'{self.OUT_FILE}.mp4', codec='copy', ss=st, to=to) 
+                        outputs = dict(filename=f'{self.OUT_FILE}.mp4', vcodec='libx264', acodec='copy', ss=st, to=to) 
                     elif 'audio' in streams_list:
                         print('Audio codec found')
-                        outputs = dict(filename=f'{self.OUT_FILE}.m4a', codec='copy', ss=st, to=to) 
+                        outputs = dict(filename=f'{self.OUT_FILE}.m4a', codec='libx264', acodec='copy', ss=st, to=to) 
                     elif 'video' in streams_list:
                         print('Video codec found')
-                        outputs = dict(filename=f'{self.OUT_FILE}.mp4', codec='copy', ss=st, to=to) 
+                        outputs = dict(filename=f'{self.OUT_FILE}.mp4', codec='libx264', acodec='copy', ss=st, to=to) 
 
             # Concat video
             elif self.EFFECT == 'a':
