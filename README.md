@@ -21,9 +21,11 @@ A python project that processes image, audio, and video files using [Pillow](htt
 
 # Features
 * webapp.py -> Webapp deployed using Flask framework
+* main.ipynb -> File containing Jupyter Notebook with same functionality as the scripts.
 * scripts -> Folder containing python files for media conversion and processing.
 
-# Scripts folder
+
+# Scripts
 * image_to_image.py -> Image formats converter.
 * media_to_media.py -> Convert audio to audio or video to video.
 * media_combine.py -> Combines audio and video codecs. Can also be used to replace audio.
