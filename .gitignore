@@ -6,7 +6,7 @@ scripts/__pycache__/
 scripts_/
 scripts_/__pycache__/
 utils/__pycache__/
-.venv/
+mppenv/
 .vscode/
 node_modules/
 
@@ -21,7 +21,6 @@ outputs/*
 
 # Others
 main.py
-ipynb/probe.ipynb
 package-lock.json
 package.json
 

@@ -1,5 +1,7 @@
 ffmpeg-python
 Pillow
+numpy
+ipykernel
 Flask
 Flask-Reuploaded
 Flask-WTF

@@ -21,7 +21,8 @@ A python project that processes image, audio, and video files using [Pillow](htt
 
 # Features
 * webapp.py -> Webapp deployed using Flask framework
-* main.ipynb -> File containing Jupyter Notebook with same functionality as the scripts.
+* main.ipynb -> Jupyter Notebook with same functionality as the scripts.
+* probe.ipynb -> Jupyter Notebook for audio and video probing.
 * scripts -> Folder containing python files for media conversion and processing.
 
 
