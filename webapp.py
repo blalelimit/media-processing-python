@@ -64,61 +64,61 @@ def upload():
 
     if request.method == "POST":
         # Check if form is submitted
-        if forms.validate_on_submit():
-            file = forms.file.data
+        if not forms.validate_on_submit():
+            return
+        file = forms.file.data
 
-            # Check if file form does not have file part
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
+        # Check if file form does not have file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
 
-            # File does not exist
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
+        # File does not exist
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
 
-            # File exists and extension is allowed
-            if file and allowed_file(file.filename):
-                input_filename = file.filename.split(".")
-                random_uuid = uuid4()
+        # File exists and extension not is allowed
+        if file and not allowed_file(file.filename):
+            output = 'Invalid input file format'
+        
+        input_filename = file.filename.split(".")
+        random_uuid = uuid4()
 
-                # Pass the data as session
-                session['CURRENT_FILE'] = input_filename
-                session['CURRENT_UUID'] = random_uuid
+        # Pass the data as session
+        session['CURRENT_FILE'] = input_filename
+        session['CURRENT_UUID'] = random_uuid
 
-                # Get filenames
-                input_filename = session.get('CURRENT_FILE', None)
-                random_uuid = session.get('CURRENT_UUID', None)
+        # Get filenames
+        input_filename = session.get('CURRENT_FILE', None)
+        random_uuid = session.get('CURRENT_UUID', None)
 
-                # Ask user for mode
-                if mode_form == 'Image' and input_filename[-1] in list(images):
-                    save_file(file, random_uuid, input_filename)
-                    MediaConvert(random_uuid, input_filename, image_form).image_convert(icon_form)
-                    output = f'Image file "{input_filename[0]}.{input_filename[-1]}" ' \
-                             f'has been converted to ' \
-                             f'"{input_filename[0]}.{image_form}"'
-                    delete_file(f'{random_uuid}.{input_filename[-1]}')
-                elif mode_form == 'Audio' and input_filename[-1] in list(audios):
-                    save_file(file, random_uuid, input_filename)
-                    MediaConvert(random_uuid, input_filename, audio_form).audio_convert()
-                    output = f'Audio file "{input_filename[0]}.{input_filename[-1]}" ' \
-                             f'has been converted to ' \
-                             f'"{input_filename[0]}.{audio_form}"'
-                    delete_file(f'{random_uuid}.{input_filename[-1]}')
+        # Ask user for mode
+        if mode_form == 'Image' and input_filename[-1] in list(images):
+            save_file(file, random_uuid, input_filename)
+            MediaConvert(random_uuid, input_filename, image_form).image_convert(icon_form)
+            output = f'Image file "{input_filename[0]}.{input_filename[-1]}" ' \
+                        f'has been converted to ' \
+                        f'"{input_filename[0]}.{image_form}"'
+            delete_file(f'{random_uuid}.{input_filename[-1]}')
+        elif mode_form == 'Audio' and input_filename[-1] in list(audios):
+            save_file(file, random_uuid, input_filename)
+            MediaConvert(random_uuid, input_filename, audio_form).audio_convert()
+            output = f'Audio file "{input_filename[0]}.{input_filename[-1]}" ' \
+                        f'has been converted to ' \
+                        f'"{input_filename[0]}.{audio_form}"'
+            delete_file(f'{random_uuid}.{input_filename[-1]}')
 
-                elif mode_form == 'Video' and input_filename[-1] in list(videos):
-                    save_file(file, random_uuid, input_filename)
-                    MediaConvert(random_uuid, input_filename, video_form).video_convert(gif_form)
-                    output = f'Video file "{input_filename[0]}.{input_filename[-1]}" ' \
-                             f'has been converted to ' \
-                             f'"{input_filename[0]}.{video_form}"'
-                    delete_file(f'{random_uuid}.{input_filename[-1]}')
+        elif mode_form == 'Video' and input_filename[-1] in list(videos):
+            save_file(file, random_uuid, input_filename)
+            MediaConvert(random_uuid, input_filename, video_form).video_convert(gif_form)
+            output = f'Video file "{input_filename[0]}.{input_filename[-1]}" ' \
+                        f'has been converted to ' \
+                        f'"{input_filename[0]}.{video_form}"'
+            delete_file(f'{random_uuid}.{input_filename[-1]}')
 
-                else:
-                    output = 'Invalid selected mode'
-
-            else:
-                output = 'Invalid input file format'
+        else:
+            output = 'Invalid selected mode'
 
     return render_template('upload.html', forms=forms,
                            image_text=images, audio_text=audios, video_text=videos, output=output)
