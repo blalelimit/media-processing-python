@@ -2,12 +2,13 @@
 A python project that processes image, audio, and video files using [Pillow](https://pillow.readthedocs.io/en/stable/) and [FFmpeg](https://ffmpeg.org/). The [ffmpeg-python](https://pypi.org/project/ffmpeg-python/) wrapper was used for the project.
 
 # Overview
-* File Format Converter for image, audio, and video files
+* File Format Converter for image, audio, video files.
 * Includes audio/video processing features such as merging audio and video codecs, etc.
-* The FFmpeg executable must first be installed and added to PATH.
+* Conversion of pdf to image formats is also included.
+* The FFmpeg executable must first be installed and added to PATH, if video processing is needed.
 
 # Requirements
-* Python 3.7
+* Python 3
 * FFmpeg executable from the official website.
 * Flask, Pillow, ffmpeg-python, and other libraries (for webapp).
 * You can install the packages in the requirements.txt file.
@@ -21,9 +22,8 @@ A python project that processes image, audio, and video files using [Pillow](htt
 
 # Features
 * webapp.py -> Webapp deployed using Flask framework
-* main.ipynb -> Jupyter Notebook with same functionality as the scripts.
-* probe.ipynb -> Jupyter Notebook for audio and video probing.
-* scripts -> Folder containing python files for media conversion and processing.
+* notebooks/main.ipynb -> Jupyter Notebook with same functionality as the scripts.
+* notebooks/probe.ipynb -> Jupyter Notebook for audio and video probing.
 
 
 # Scripts
