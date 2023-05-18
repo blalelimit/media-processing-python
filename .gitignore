@@ -1,4 +1,10 @@
 # Folders
+.vscode/
+mppenv/
+bin/
+build/
+dist/
+node_modules/
 __pycache__/
 static/inputs/
 static/outputs/
@@ -6,9 +12,6 @@ scripts/__pycache__/
 scripts_/
 scripts_/__pycache__/
 utils/__pycache__/
-mppenv/
-.vscode/
-node_modules/
 
 
 # Only include *.py and *.gitkeep files
@@ -18,6 +21,12 @@ inputs/*
 !inputs/*.gitkeep
 outputs/*
 !outputs/*.gitkeep
+
+
+# Remove certain filetypes
+*.spec
+*.txt
+
 
 # Others
 main.py

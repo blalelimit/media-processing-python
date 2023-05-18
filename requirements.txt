@@ -1,4 +1,5 @@
 ffmpeg-python
 Pillow
 numpy
+pdf2image
 ipykernel
