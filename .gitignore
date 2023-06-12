@@ -1,6 +1,6 @@
 # Folders
 .vscode/
-mppenv/
+venv/
 bin/
 build/
 dist/
