@@ -108,8 +108,8 @@ class ImageToImage:
             sys.stdout.write('Input file cannot be found.\n')
             sys.exit(0)
         
-        # Format is *.ico but input size is not valid
-        if self.in_format == 'ico' and self.icon_size not in [16, 24, 32, 48, 64, 128, 256]:
+        # Output format is *.ico but input size is not valid
+        if self.out_format == 'ico' and self.icon_size not in [16, 24, 32, 48, 64, 128, 256]:
             sys.stdout.write('Icon size not valid.\n')
             sys.exit(0)
 
@@ -124,6 +124,7 @@ class ImageToImage:
                 img.save(f'{self.out_file}.bmp', 'bmp')
 
             elif self.out_format == 'png':
+                img = Image.open(self.in_file).convert('RGBA')
                 img.save(f'{self.out_file}.png', 'png', compress_level=0)
 
             elif self.out_format in ['jpg', 'jpeg']:
